@@ -268,3 +268,29 @@ Sentence
 - [Playground](https://distill.pub/2017/momentum/)  
 
 ### Adam Optimizer  
+
+## Week 07: Deep Learning (III) - GPT, BER
+
+### GPT
+
+- Self-Attention
+  - ทำให้เข้าใจคำแบบที่เข้าใจบริบทของมันจริงๆ ไม่ใช้แค่เข้าใจเป็นความหมายตามพจนานุกรม 
+
+### Encoder-Only Language Model
+
+- Masked Language Model Loss
+  - 
+- BERT 
+  - BERT Family
+    - BERT (Google, 2018)
+    - RoBERTa (Facebook, 2019)
+    - DeBERTa (Microsoft, 2019)
+  - Predict คนละ loss กับ GPT
+    - GPT: ทายคำถัดไป
+    - BERT: ทายคำตรงกลาง 
+  - ไม่ค่อยมีอะไร ต้องไป Fine-Tuning ก่อน
+  - Sequence Classification with BERT
+    - CLS   
+  - SOTA (State of the Art): สิ่งที่ดีที่สุดที่เคยเห็น หรือ เคยสังเกตในขณะนั้น  
+- Multilingual Models 
+  - Model ส่วนใหญ่เป็นภาษาอังกฤษ แต่ก็มีบางโมเดลที่ทำไว้เป็นภาษาอื่นด้วย  
