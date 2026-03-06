@@ -294,3 +294,45 @@ Sentence
   - SOTA (State of the Art): สิ่งที่ดีที่สุดที่เคยเห็น หรือ เคยสังเกตในขณะนั้น  
 - Multilingual Models 
   - Model ส่วนใหญ่เป็นภาษาอังกฤษ แต่ก็มีบางโมเดลที่ทำไว้เป็นภาษาอื่นด้วย  
+
+## Week 08: Information Retrieval  
+- Dot Product 
+  - ดูว่า query กับ document มันแมทช์กันแค่ไหน
+- Norm 
+  - เป็นตัวหาร ทำให้ Document มีความเท่ากันนิดนึง 
+- Cosine Score 
+
+### Term Weighting with TF-IDF 
+- มีข้อสันนิษฐานว่าคำที่เจอบ่อยๆทุกอัน แล้วเราเอาคะแนนของคำนั้นมานับ มันก็ไม่ดี เพราะทุกประโยคก็อาจจะเจอคำนั้นหมด สามารถตัดออกไปได้ (แต่เราอาจจะไม่ตัดออก แต่ใช้วิธีการให้ความสำคัญกับมันน้อยลง อีกอย่างคือมันแล้วแต่ document ด้วย)  
+  - เช่น การรีวิวโรงแรม น่าจะมีคำว่า "โรงแรม" ในแต่ละรีวิว ดังนั้นเราจึงอาจจะให้ความสำคัญกับมันน้อยลง  
+- Common Solution for Term Weighting
+  - TF-IDF
+    - Formula: weight = t_f * id_f  
+      - Raw Count: tf_(t,d) = count(t, d)
+      - Squash Way: tf_(t,d) = 1 + log(count(t,d), 10) if count(t,d) > 0; = 0 if otherwise;
+        - log คือการบีบค่า ให้ค่าห่างกันไม่กว้างเกิน 
+- Collection Frequency
+  - เจอกี่ครั้งใน Collection 
+- Document Frequency
+  - เจอกี่ Document ใน Collection 
+- Inverse Document Frequency (IDF)
+  idf_t = log((N / df_t), 10); N -> Total Number of Documents in the collection 
+  - df บอกความสำคัญของคำ
+
+### Search in Practice
+- การเลือกใช้สูตร เราจะเลือกใช้แบบไหนก็แล้วแต่การวางแผนของเราเลย
+- Okapi BM25 (BM = Best Match)  
+  - Formula: score(D, Q) = ...
+  - การคำนวณแบบสูตร n(q_i) เป็นการคำนวณที่หลายๆเจ้าใช้  
+
+
+### Efficiency: Inverted Index 
+- เก็บดัชนี แทน Document ก็ได้ ทำให้กระชับขึ้น
+- แทนที่จะเก็บแค่ Document เราจะเก็บด้วยว่า Term Frequency (tf) มีเท่าไหร่ 
+- Assignment 02 อาจจะให้ทำเรื่อง Inverted Index 
+
+### Evaluation of IR (Information Retrieval)
+- มีการทำ Precision and Recall 
+  - ดูความถูกใจเป็นหลัก อาจจะไม่ได้วัดความถูกต้องขนาดนั้น 
+- Search ไม่เหมือนกับ Classifier คือ Data ถูก Annotated โดยอัตโนมัติ โดยจะบันทึกระหว่างที่ User ทำการเสิร์ช (มี Search Log มาให้) 
+  - แต่อาจจะเกิดปัญหา Cold Start Problem คือในช่วงแรกจะไม่มีข้อมูล ทำให้ไม่รู้ว่าข้อมูลเป็นอย่างไร  
