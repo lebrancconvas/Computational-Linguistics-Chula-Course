@@ -336,3 +336,63 @@ Sentence
   - ดูความถูกใจเป็นหลัก อาจจะไม่ได้วัดความถูกต้องขนาดนั้น 
 - Search ไม่เหมือนกับ Classifier คือ Data ถูก Annotated โดยอัตโนมัติ โดยจะบันทึกระหว่างที่ User ทำการเสิร์ช (มี Search Log มาให้) 
   - แต่อาจจะเกิดปัญหา Cold Start Problem คือในช่วงแรกจะไม่มีข้อมูล ทำให้ไม่รู้ว่าข้อมูลเป็นอย่างไร  
+
+## Week 09: Information Retrieval (Continue)
+
+### Evaluation of IR (Information Retrieval)
+
+- Precision & Recall
+  - Precision: % of selected items that are corrected.
+  - Recall: % of corrected items that are selected.  
+
+- Query, Doc_ID, Rank, Click, Precision@K
+  - ดูแต่ละ Query ว่ามีตัวไหนใน Query ที่โดน Click (Click = 1)
+  - ในแถวที่โดนคลิ๊ก ให้ดูว่าอยู่ใน Rank ไหน 
+  - ให้หา Precision@K (Precision ของ Rank นั้น มาคิด)
+
+### Conclusion
+- Information Retrieval find relevant documents to address information needs.
+- ใช้ TF-IDF ในการหาคำที่เกี่ยวข้อง  
+- ใช้ MAP ในการ evaluate
+
+## Week 09 (II): Advanced IR and RAG
+
+### A/B Testing
+
+- เปรียบเทียบแต่ละกลุ่ม ว่าทำแบบไหนให้ผลได้ดีกว่า หรือมีพฤติกรรมในการทำสิ่งนั้นๆในแต่ละกลุ่ม เหมือน หรือ ต่างกันอย่างไร  
+- วัด Metrics อะไรก็ได้ 
+- ตัวอย่าง
+  - เปลี่ยนปุ่มแล้วมีผลต่อพฤติกรรมหรือไม่ อย่างไร 
+- Step
+  - Evaluate new system
+  - Divert small amount of traffic
+    - 1% new system + 99% status quo (status quo = สิ่งที่กำลังเป็นอยู่ตอนนี้)
+  - Wait and Monitor
+  - Roll out to more  
+- Prop
+  - ใช้การวัด Metrics แบบไหนก็ได้ 
+  - วัดผลได้โดยตรงจากการใช้งานสิ่งที่เปลี่ยนไปจริงๆได้เลย 
+- Cons
+  - ใช้เวลานาน 
+  - ต้องมี Infrastructure เบื้องหลังที่ดี ในการเปลี่ยนผ่านระบบไปสู่ผู้ใช้แต่ละคน 
+
+### Query Understanding
+
+- เปลี่ยนคำเป็น Token
+  - Token ในที่นี้อาจจะ assume จากคำเลยก็ได้ เช่น
+    - "พาสต้า โรแมนติก สีลม ไม่ แพง"
+      - "สีลม" assume เป็น "Location: สีลม" (เห็นชื่อที่ดูเหมือนสถานที่ ก็เอาเข้าไปเป็นสถานที่)
+      - "ไม่แพง" assume เป็น "Attribute: $$" หรือ "Price: $$" (เห็นคำที่ดูเหมือนแสดงความเห็นเรื่องราคา ก็เอาไปตีเป็นช่วงราคา)  
+- Users don't tell everything.
+  - Example
+    - Distance
+    - Rating
+    - Open Now?  
+    - New Restaurant 
+- Features for search
+  - TermScore(q, d) โดยใช้ TF-IDF
+  - FromScore(q, d)
+  - TitleScore(q, d)
+  - QueryExpansionScore(q, d)  
+  - Distance Score(u, d)
+  - Recency Score(u, d) 
